@@ -1,1 +1,6 @@
 joblib==1.4.2
+seaborn
+pandas
+matplotlib
+streamlit
+numpy
