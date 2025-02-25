@@ -3,6 +3,7 @@ import pandas as pd
 import joblib
 import seaborn as sns
 import matplotlib.pyplot as plt
+import io  # Import io for capturing df.info()
 
 # Set page configuration (must be the first Streamlit command)
 st.set_page_config(page_title="Credit Card Fraud Detection", layout="wide")
@@ -10,7 +11,7 @@ st.set_page_config(page_title="Credit Card Fraud Detection", layout="wide")
 # Load the saved model
 @st.cache_resource
 def load_model():
-    return joblib.load("gs_rf.pk1")  # Make sure the model file is in the same directory
+    return joblib.load("gs_rf.pk1")  # Ensure the file exists in the directory
 
 model = load_model()
 
@@ -35,9 +36,9 @@ if uploaded_file is not None:
 
     # Show data information (columns, types, etc.)
     st.write("### Data Information:")
-    buffer = []
-    df.info(buf=buffer.append)
-    info_str = "\n".join(buffer)
+    buffer = io.StringIO()  # Use StringIO to capture df.info() output
+    df.info(buf=buffer)
+    info_str = buffer.getvalue()
     st.text(info_str)
 
     # Ensure the dataset has the correct features
