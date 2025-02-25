@@ -4,6 +4,9 @@ import joblib
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+# Set page configuration (must be the first Streamlit command)
+st.set_page_config(page_title="Credit Card Fraud Detection", layout="wide")
+
 # Load the saved model
 @st.cache_resource
 def load_model():
@@ -12,7 +15,6 @@ def load_model():
 model = load_model()
 
 # Streamlit UI
-st.set_page_config(page_title="Credit Card Fraud Detection", layout="wide")
 st.title("Credit Card Fraud Detection System")
 st.write(
     """
@@ -33,7 +35,10 @@ if uploaded_file is not None:
 
     # Show data information (columns, types, etc.)
     st.write("### Data Information:")
-    st.write(df.info())
+    buffer = []
+    df.info(buf=buffer.append)
+    info_str = "\n".join(buffer)
+    st.text(info_str)
 
     # Ensure the dataset has the correct features
     expected_features = model.feature_names_in_  # Extract features the model expects
