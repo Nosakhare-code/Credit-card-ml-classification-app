@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 import joblib
@@ -7,6 +8,7 @@ import io  # Import io for capturing df.info()
 
 # Set page configuration (must be the first Streamlit command)
 st.set_page_config(page_title="Credit Card Fraud Detection", layout="wide")
+
 
 # Load the saved model
 @st.cache_resource
@@ -19,11 +21,20 @@ model = load_model()
 st.title("Credit Card Fraud Detection System")
 st.write(
     """
-    This is a demo for predicting credit card fraud using a machine learning model. The dataset used 
+    This is a demo for predicting credit card fraud using a machine learning model, the dataset used 
     for this demo was obtained from Kaggle. The features have been anonymized due to company data privacy 
-    policies, so this is just a practice demo.
+    policies, recall is at 90% (i.e don't miss any fraud case). Email me at nosakhareasowata94@gmail.com for feedback/remarks 
+    as i will be updating my code from the feedbacks i get, thanks in anticipation.
     """
 )
+
+st.write("### Download Test File (CSV Format) and make your predictions")
+csv_url = "https://docs.google.com/spreadsheets/d/1K3jIpRLh-dwtmMPOD3RsN5k08IJdtRIW-CvH3ETxwt4/export?format=csv"
+st.markdown(f"[Download CSV File]({csv_url})")
+
+st.write("### Download Test File results (CSV Format) and compare with model predictions")
+csv_url = "https://docs.google.com/spreadsheets/d/1ykMCpFcpVFINL_GPGU_No3t6id85DvLlob1-axWj7ys/export?format=csv"
+st.markdown(f"[Download CSV File]({csv_url})")
 
 # File uploader
 uploaded_file = st.file_uploader("Choose a CSV file to predict fraud cases", type=["csv"])
